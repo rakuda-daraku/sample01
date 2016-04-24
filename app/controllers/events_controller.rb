@@ -22,6 +22,12 @@ class EventsController < ApplicationController
     end
   end
 
+  def destroy
+    @event = current_user.created_events.find(params[:id])
+    @event.destroy!
+    redirect_to root_path, notice: '削除しました'
+  end
+
   def create
     @event = current_user.created_events.build(event_params)
     if @event.save
